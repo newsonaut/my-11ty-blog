@@ -29,6 +29,9 @@ body {
   max-width: 40rem;
   margin-inline: auto;
   padding: 0 1rem;
+  background-image: url("/img/ufo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Site header */
