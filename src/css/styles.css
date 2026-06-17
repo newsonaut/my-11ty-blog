@@ -29,9 +29,8 @@ body {
   max-width: 40rem;
   margin-inline: auto;
   padding: 0 1rem;
-  background:
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>'),
-    #f5e7d3;
+  /* background-color: #8a008a; */
+  background-image: url("https://www.transparenttextures.com/patterns/argyle.png");
 }
 
 /* Site header */
