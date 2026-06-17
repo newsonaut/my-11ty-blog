@@ -29,7 +29,7 @@ body {
   max-width: 40rem;
   margin-inline: auto;
   padding: 0 1rem;
-  background-image: url("/img/argyle.png");
+  /* background-image: url("/img/argyle.png"); */
 }
 
 /* Site header */
