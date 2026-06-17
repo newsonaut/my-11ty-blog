@@ -29,8 +29,7 @@ body {
   max-width: 40rem;
   margin-inline: auto;
   padding: 0 1rem;
-  background-image: url("/img/ufo.png");
-  background-repeat: no-repeat;
+  background: url("/img/ufo.png") no-repeat top center fixed;
   background-size: cover;
 }
 
