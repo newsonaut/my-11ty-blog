@@ -9,10 +9,8 @@
   /* Purple/pink palette. light-dark() picks the light value first, dark second */
   --bg: light-dark(#fdf4fa, #1a141f);
   --text: light-dark(#2a1f2d, #ece0ef);
-  /* --text: light-dark(#666a77, #93a3ac); */
   --muted: light-dark(#6f5d77, #a892b0);
   --accent: light-dark(#a21caf, #ff7ab6);
-  /* --accent: light-dark(#acc47e, #acc47e); */
   --border: light-dark(#ecd9ec, #3a2f40);
 }
 
@@ -31,8 +29,27 @@ body {
   max-width: 40rem;
   margin-inline: auto;
   padding: 0 1rem;
-  /* background: url("/img/ufo.png") no-repeat top center fixed;
-  background-size: cover; */
+  background-color: #f5e7d3; /* Parchment-like base color */
+  background-image:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(100, 70, 40, 0.15) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(100, 70, 40, 0.15) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(100, 70, 40, 0.08) 0%,
+      transparent 50%
+    );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: #333; /* Dark text for contrast */
+  font-family: serif; /* Optional: for a classic look */
 }
 
 /* Site header */
