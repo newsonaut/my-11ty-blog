@@ -8,11 +8,11 @@
 
   /* Purple/pink palette. light-dark() picks the light value first, dark second */
   --bg: light-dark(#fdf4fa, #1a141f);
-  /* --text: light-dark(#2a1f2d, #ece0ef); */
-  --text: light-dark(#666a77, #93a3ac);
+  --text: light-dark(#2a1f2d, #ece0ef);
+  /* --text: light-dark(#666a77, #93a3ac); */
   --muted: light-dark(#6f5d77, #a892b0);
   --accent: light-dark(#a21caf, #ff7ab6);
-  --accent: light-dark(#acc47e, #acc47e);
+  /* --accent: light-dark(#acc47e, #acc47e); */
   --border: light-dark(#ecd9ec, #3a2f40);
 }
 
@@ -31,8 +31,8 @@ body {
   max-width: 40rem;
   margin-inline: auto;
   padding: 0 1rem;
-  background: url("/img/ufo.png") no-repeat top center fixed;
-  background-size: cover;
+  /* background: url("/img/ufo.png") no-repeat top center fixed;
+  background-size: cover; */
 }
 
 /* Site header */
