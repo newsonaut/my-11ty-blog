@@ -1,0 +1,89 @@
+:root {
+  /* Let the browser handle light and dark automatically */
+  color-scheme: light dark;
+
+  /* Two system-font stacks: sans for body, serif for headings */
+  --font-body: system-ui, sans-serif;
+  --font-head: ui-serif, Georgia, "Iowan Old Style", serif;
+
+  /* Purple/pink palette. light-dark() picks the light value first, dark second */
+  --bg: light-dark(#fdf4fa, #1a141f);
+  --text: light-dark(#2a1f2d, #ece0ef);
+  --muted: light-dark(#6f5d77, #a892b0);
+  --accent: light-dark(#a21caf, #ff7ab6);
+  --border: light-dark(#ecd9ec, #3a2f40);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding: 0 1rem;
+}
+
+/* Site header */
+header {
+  text-align: center;
+  padding-block: 2rem;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Main content */
+main {
+  padding-block: 2rem;
+}
+
+/* Site footer */
+footer {
+  margin-top: 4rem;
+  padding-block: 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Links */
+a {
+  color: var(--accent);
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Headings */
+h1,
+h2 {
+  font-family: var(--font-head);
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-top: 2.5rem;
+}
