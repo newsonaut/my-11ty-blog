@@ -1,14 +1,14 @@
 ---
 title: Quantities
 date: 2026-06-16
+intro:
+  eyebrow: "~ General Information ~"
 ---
 
-A: one
-
-Couple: two
-
-Few: three or four
-
-Several: five, six or seven
-
-Many: eight and above
+<ul>
+<li>A = one</li>
+<li>Couple = two</li>
+<li>Few = three or four</li>
+<li>Several = five, six or seven</li>
+<li>Many = eight and above</li>
+</ul>

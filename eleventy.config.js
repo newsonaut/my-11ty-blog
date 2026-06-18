@@ -4,11 +4,11 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/fonts");
   eleventyConfig.addPassthroughCopy("./src/js");
 
-  return {
-    dir: {
-      input: "src",
-      output: "public",
-      includes: "_includes",
-    },
-  };
+  eleventyConfig.setInputDirectory("src");
+  eleventyConfig.setOutputDirectory("public");
 }
+
+export const config = {
+  markdownTemplateEngine: "njk",
+  htmlTemplateEngine: "njk",
+};
