@@ -24,12 +24,18 @@ body {
   font-family: var(--font-body);
   color: var(--text);
   background: var(--bg);
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   line-height: 1.6;
   max-width: 40rem;
   margin-inline: auto;
   padding: 0 1rem;
-  /* background-image: url("/img/argyle.png"); */
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  background: #faebd7;
+  filter: sepia(10%) brightness(95%);
+  color: #1a120b;
 }
 
 /* Site header */
@@ -46,6 +52,9 @@ nav {
   gap: 1.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #2c2c2c;
+  /* text-transform: uppercase; */
+  font-size: 1.2rem;
 }
 
 /* Main content */
@@ -61,11 +70,13 @@ footer {
   color: var(--muted);
   font-size: 0.9rem;
   border-top: 1px solid var(--border);
+  color: #2c2c2c;
 }
 
 /* Links */
 a {
   color: var(--accent);
+  color: #2c2c2c;
   text-underline-offset: 0.18em;
 }
 
@@ -86,6 +97,10 @@ h1 {
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 2.4rem;
   margin-top: 2.5rem;
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
