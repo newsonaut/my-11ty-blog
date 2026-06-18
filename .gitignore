@@ -1,7 +1,16 @@
 # dependencies installed by npm
-
 node_modules
+dist
 
 # build artefacts
-
 public
+
+# Misc
+*.log
+npm-debug.*
+*.scssc
+*.swp
+.DS_Store
+.sass-cache
+.env
+.cache

@@ -1,5 +1,6 @@
 ---
 title: Quantities
+date: 2026-06-16
 ---
 
 A: one
