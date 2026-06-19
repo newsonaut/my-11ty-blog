@@ -4,7 +4,7 @@
   <subtitle>These postings may be of interest.</subtitle>
   <link href="https://misfitgentleman.neocities.org/feed.xml" rel="self" />
   <link href="https://misfitgentleman.neocities.org/" />
-  <updated>2026-06-18T00:00:00Z</updated>
+  <updated>2026-06-19T00:00:00Z</updated>
   <id>https://misfitgentleman.neocities.org/</id>
   <author>
     <name>Best not known</name>
@@ -14,9 +14,9 @@
   
   <entry>
     <title>Quantities</title>
-    <link href="https://misfitgentleman.neocities.org/blog/quantities/" />
+    <link href="https://misfitgentleman.neocities.org/blog/general-information/quantities/" />
     <updated>2026-06-16T00:00:00Z</updated>
-    <id>https://misfitgentleman.neocities.org/blog/quantities/</id>
+    <id>https://misfitgentleman.neocities.org/blog/general-information/quantities/</id>
     <content type="html">&lt;ul&gt;
 &lt;li&gt;A = one&lt;/li&gt;
 &lt;li&gt;Couple = two&lt;/li&gt;
@@ -30,9 +30,9 @@
   
   <entry>
     <title>Chitchat</title>
-    <link href="https://misfitgentleman.neocities.org/blog/chitchat/" />
+    <link href="https://misfitgentleman.neocities.org/blog/amusements/chitchat/" />
     <updated>2026-06-17T00:00:00Z</updated>
-    <id>https://misfitgentleman.neocities.org/blog/chitchat/</id>
+    <id>https://misfitgentleman.neocities.org/blog/amusements/chitchat/</id>
     <content type="html">&lt;p&gt;A discussion about notes recording sums owed.&lt;/p&gt;
 </content>
   </entry>
@@ -40,9 +40,9 @@
   
   <entry>
     <title>Typographical Symbols of Note</title>
-    <link href="https://misfitgentleman.neocities.org/blog/symbols-of-note/" />
+    <link href="https://misfitgentleman.neocities.org/blog/typography/symbols-of-note/" />
     <updated>2026-06-17T00:00:00Z</updated>
-    <id>https://misfitgentleman.neocities.org/blog/symbols-of-note/</id>
+    <id>https://misfitgentleman.neocities.org/blog/typography/symbols-of-note/</id>
     <content type="html">&lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Manicule&quot;&gt;manicule&lt;/a&gt;, &lt;span style=&quot;font-size: 125%;&quot;&gt;☞&lt;/span&gt;, is a typographical mark with the appearance of a hand with its index finger extended in a pointing gesture.&lt;/p&gt;
 &lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Section_sign&quot;&gt;silcrow&lt;/a&gt;, or section sign, (§) is a typographical symbol for referencing individually numbered sections of a document.&lt;/p&gt;
 &lt;p&gt;In typography, the &lt;a href=&quot;https://en.wikipedia.org/wiki/Pilcrow&quot;&gt;pilcrow&lt;/a&gt; (¶) is a grapheme used to identify a paragraph.&lt;/p&gt;
@@ -54,10 +54,22 @@
   
   <entry>
     <title>Drop Shadows</title>
-    <link href="https://misfitgentleman.neocities.org/blog/drop-shadows/" />
+    <link href="https://misfitgentleman.neocities.org/blog/design-principles/drop-shadows/" />
     <updated>2026-06-18T00:00:00Z</updated>
-    <id>https://misfitgentleman.neocities.org/blog/drop-shadows/</id>
+    <id>https://misfitgentleman.neocities.org/blog/design-principles/drop-shadows/</id>
     <content type="html">&lt;p&gt;Due to its importance in our lives, the sun is most often depicted in illustrations to the upper left — the most prominent placement possible. Therefore, drop shadows should reflect this by being placed to the lower right.&lt;/p&gt;
+</content>
+  </entry>
+  
+  
+  <entry>
+    <title>The Accident of My Birthday</title>
+    <link href="https://misfitgentleman.neocities.org/blog/personal/birthday/" />
+    <updated>2026-06-19T00:00:00Z</updated>
+    <id>https://misfitgentleman.neocities.org/blog/personal/birthday/</id>
+    <content type="html">&lt;p&gt;I was born, fortuitously, at one second past midnight on January the first in the year 1800. Thus, my age has always reflected the year. This was as true in the 19th century as it is in the current 21st century.&lt;/p&gt;
+&lt;p&gt;I bring this up because it may be a clue. For it was at one second past midnight on the day I turned 26 that I suddenly found myself exactly 200 years into the future.&lt;/p&gt;
+&lt;p&gt;I’m not sure what to make of it, but I am convinced that the marvelous new technologies of this era may aid me. This web log is an experimentation to that end.&lt;/p&gt;
 </content>
   </entry>
   

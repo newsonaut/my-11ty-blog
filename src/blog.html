@@ -2,12 +2,32 @@
 title: Web Log
 layout: base.njk
 ---
-These web log postings may be of interest.
+<!-- These web log postings may be of interest. -->
+
+<style>
+  .browse-by-tag-ul {
+    padding-left: 0;
+  }
+
+  .browse-by-tag-li {
+    display: inline;
+    margin-right: 20px;
+  }
+</style>
+
+<h3>Categorization</h3>
+<ul class="browse-by-tag-ul">
+  {% for tag in collections.all | getAllTags | reject('equalto', 'blog') %}
+  <li class="browse-by-tag-li"><a href="/tags/{{ tag | slugify }}/">{{ tag }}</a></li>
+  {% endfor %}
+</ul>
+
+<h3>Postings</h3>
 <ul>
   {% set posts = collections.blog | reverse %}
   {% for post in posts %}
   <li>
-    <a href="{{ post.url }}">{{ post.data.title }}</a>
+    <a href="{{ post.url }}">{{ post.data.title }}</a> <span style="font-size: 80%; font-style: italic; margin-top: -20px;">({{ post.date | readableDate }}{% if post.data.tags %} | {% for tag in post.data.tags | reject('equalto', 'blog') %}<a href="/tags/{{ tag | slugify }}/">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% endif %})</span>
   </li>
   {% endfor %}
 </ul>
