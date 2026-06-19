@@ -1,6 +1,7 @@
 ---
 title: Chitchat
 date: 2026-06-17
+tags: ["Amusements"]
 intro:
   eyebrow: "~ Amusements ~"
 ---

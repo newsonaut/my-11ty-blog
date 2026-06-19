@@ -1,10 +1,6 @@
 # dependencies installed by npm
 node_modules
 dist
-
-# build artefacts
-public
-
 # Misc
 *.log
 npm-debug.*

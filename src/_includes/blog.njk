@@ -1,6 +1,11 @@
 ---
 layout: base.njk
 ---
-
-<em style="font-size: 90%;"> {{ intro.eyebrow }} </em>
+<em style="font-size: 90%;">~ 
+{% for tag in tags | reject('equalto', 'blog') %}
+<a href="/tags/{{ tag | slugify }}/">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+{% endfor %}
+ ~</em>
 <article>{{ content | safe }}</article>
+
+<p>☜ <em style="font-size: 90%;"><a href="/blog/">Back to all posts</a></em></p>

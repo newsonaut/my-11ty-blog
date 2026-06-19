@@ -1,0 +1,112 @@
+:root {
+  /* Let the browser handle light and dark automatically */
+  color-scheme: light dark;
+
+  /* Two system-font stacks: sans for body, serif for headings */
+  --font-body: system-ui, sans-serif;
+  --font-head: ui-serif, Georgia, "Iowan Old Style", serif;
+
+  /* Purple/pink palette. light-dark() picks the light value first, dark second */
+  --bg: light-dark(#fdf4fa, #1a141f);
+  --text: light-dark(#2a1f2d, #ece0ef);
+  --muted: light-dark(#6f5d77, #a892b0);
+  --accent: light-dark(#a21caf, #ff7ab6);
+  --border: light-dark(#ecd9ec, #3a2f40);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding: 0 1rem;
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  background: #faebd7;
+  filter: sepia(10%) brightness(95%);
+  color: #1a120b;
+}
+
+/* Site header */
+header {
+  text-align: center;
+  padding-block: 2rem;
+}
+
+/* Navigation */
+nav,
+.nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #2c2c2c;
+  /* text-transform: uppercase; */
+  font-size: 1.2rem;
+  list-style: none;
+}
+
+/* Main content */
+main {
+  padding-block: 2rem;
+}
+
+/* Site footer */
+footer {
+  margin-top: 4rem;
+  padding-block: 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  color: #2c2c2c;
+}
+
+/* Links */
+a {
+  color: var(--accent);
+  color: #2c2c2c;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Headings */
+h1,
+h2 {
+  font-family: var(--font-head);
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: 4rem;
+  font-family: "Herr Von Muellerhoff", cursive;
+}
+
+h1 a {
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 2.4rem;
+  margin-top: 2.5rem;
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
