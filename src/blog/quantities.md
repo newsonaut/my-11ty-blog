@@ -2,8 +2,6 @@
 title: Quantities
 date: 2026-06-16
 tags: ["General Information"]
-intro:
-  eyebrow: "~ General Information ~"
 ---
 
 <ul>

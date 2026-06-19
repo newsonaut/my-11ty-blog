@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>Misfit Gentleman Web Log</title>
+  <subtitle>These postings may be of interest.</subtitle>
+  <link href="https://misfitgentleman.neocities.org/feed.xml" rel="self" />
+  <link href="https://misfitgentleman.neocities.org/" />
+  <updated>2026-06-18T00:00:00Z</updated>
+  <id>https://misfitgentleman.neocities.org/</id>
+  <author>
+    <name>Best not known</name>
+    <email>Not advisable</email>
+  </author>
+  
+  
+  <entry>
+    <title>Quantities</title>
+    <link href="https://misfitgentleman.neocities.org/blog/quantities/" />
+    <updated>2026-06-16T00:00:00Z</updated>
+    <id>https://misfitgentleman.neocities.org/blog/quantities/</id>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;A = one&lt;/li&gt;
+&lt;li&gt;Couple = two&lt;/li&gt;
+&lt;li&gt;Few = three or four&lt;/li&gt;
+&lt;li&gt;Several = five, six or seven&lt;/li&gt;
+&lt;li&gt;Many = eight and above&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  
+  
+  <entry>
+    <title>Chitchat</title>
+    <link href="https://misfitgentleman.neocities.org/blog/chitchat/" />
+    <updated>2026-06-17T00:00:00Z</updated>
+    <id>https://misfitgentleman.neocities.org/blog/chitchat/</id>
+    <content type="html">&lt;p&gt;A discussion about notes recording sums owed.&lt;/p&gt;
+</content>
+  </entry>
+  
+  
+  <entry>
+    <title>Typographical Symbols of Note</title>
+    <link href="https://misfitgentleman.neocities.org/blog/symbols-of-note/" />
+    <updated>2026-06-17T00:00:00Z</updated>
+    <id>https://misfitgentleman.neocities.org/blog/symbols-of-note/</id>
+    <content type="html">&lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Manicule&quot;&gt;manicule&lt;/a&gt;, &lt;span style=&quot;font-size: 125%;&quot;&gt;☞&lt;/span&gt;, is a typographical mark with the appearance of a hand with its index finger extended in a pointing gesture.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Section_sign&quot;&gt;silcrow&lt;/a&gt;, or section sign, (§) is a typographical symbol for referencing individually numbered sections of a document.&lt;/p&gt;
+&lt;p&gt;In typography, the &lt;a href=&quot;https://en.wikipedia.org/wiki/Pilcrow&quot;&gt;pilcrow&lt;/a&gt; (¶) is a grapheme used to identify a paragraph.&lt;/p&gt;
+&lt;p&gt;A &lt;a href=&quot;https://en.wikipedia.org/wiki/Dagger_(mark)&quot;&gt;dagger, obelisk, or obelus&lt;/a&gt; &lt;span style=&quot;font-size: 150%;&quot;&gt;†&lt;/span&gt; is a typographical mark that usually indicates a footnote if an asterisk has already been used.&lt;/p&gt;
+&lt;p&gt;A &lt;a href=&quot;https://en.wikipedia.org/wiki/Fleuron_(typography)&quot;&gt;fleuron&lt;/a&gt;, ❦, also known as a printers&#39; flower, is a typographical symbol, or glyph, used either as a punctuation mark or as an ornament for typographic compositions.&lt;/p&gt;
+</content>
+  </entry>
+  
+  
+  <entry>
+    <title>Drop Shadows</title>
+    <link href="https://misfitgentleman.neocities.org/blog/drop-shadows/" />
+    <updated>2026-06-18T00:00:00Z</updated>
+    <id>https://misfitgentleman.neocities.org/blog/drop-shadows/</id>
+    <content type="html">&lt;p&gt;Due to its importance in our lives, the sun is most often depicted in illustrations to the upper left — the most prominent placement possible. Therefore, drop shadows should reflect this by being placed to the lower right.&lt;/p&gt;
+</content>
+  </entry>
+  
+</feed>
