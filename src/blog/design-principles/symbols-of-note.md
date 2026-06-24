@@ -1,7 +1,7 @@
 ---
 title: Typographical Symbols of Note
 date: 2026-06-17
-tags: ["Typography"]
+tags: ["Design Principles"]
 ---
 
 The <a href="https://en.wikipedia.org/wiki/Manicule">manicule</a>, <span style="font-size: 125%;">☞</span>, is a typographical mark with the appearance of a hand with its index finger extended in a pointing gesture.

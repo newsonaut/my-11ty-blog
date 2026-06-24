@@ -1,7 +1,7 @@
 ---
 title: The Accident of My Birthday
 date: 2026-06-19
-tags: ["Personal"]
+tags: ["Personal Notes"]
 ---
 
 I was born, fortuitously, at one second past midnight on January the first in the year 1800. Thus, my age has always reflected the year. This was as true in the 19th century as it is in the current 21st century.
