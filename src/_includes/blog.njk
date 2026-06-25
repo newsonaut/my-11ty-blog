@@ -33,3 +33,11 @@ layout: base.njk
     {% endfor %}
   </section>
 {% endif %}
+
+<!-- DEBUG: Show raw webmention data -->
+{% if webmentions %}
+  <h3>DEBUG: Raw Data</h3>
+  <pre>{{ webmentions | dump }}</pre>
+{% else %}
+  <h3>DEBUG: No webmentions object found</h3>
+{% endif %}
