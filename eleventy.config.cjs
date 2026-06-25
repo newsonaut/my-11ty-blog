@@ -2,9 +2,11 @@ const rssPlugin = require("@11ty/eleventy-plugin-rss");
 const fs = require("fs");
 const path = require("path");
 
-// Webmentions helper (adjust path based on where you store this)
-const fetchWebmentions = () => {
-  return Promise.resolve({ entries: [] }); // Replace with your actual fetch logic
+// Webmentions fetcher (simplified - adjust path if needed)
+const fetchWebmentions = async () => {
+  // Your actual fetch logic here
+  console.log("Webmentions fetch placeholder");
+  return { entries: [] };
 };
 
 module.exports = function (eleventyConfig) {
@@ -38,22 +40,19 @@ module.exports = function (eleventyConfig) {
     return Array.from(tagSet).sort();
   });
 
-  // Webmentions (pre-build hook)
+  // Pre-build hook for webmentions
   eleventyConfig.on("beforeBuild", async () => {
     try {
       await fetchWebmentions();
     } catch (error) {
-      console.error(error);
+      console.error("Webmentions error:", error);
     }
   });
 
-  // Make mentions available globally
-  eleventyConfig.addGlobalDataAsync("webmentions", async () => {
-    const cachePath = path.join(".eleventy-cache", "webmentions.json");
-    if (fs.existsSync(cachePath)) {
-      return JSON.parse(fs.readFileSync(cachePath, "utf8"));
-    }
-    return { entries: [] };
+  // Global data workaround (if you need mentions available in templates)
+  // You can load from cache file synchronously or pass via template data files
+  eleventyConfig.addDataExtension("json", (contents) => {
+    return JSON.parse(contents);
   });
 
   return {
@@ -62,7 +61,6 @@ module.exports = function (eleventyConfig) {
   };
 };
 
-// Config object (if you need it)
 module.exports.config = {
   markdownTemplateEngine: "njk",
   htmlTemplateEngine: "njk",
