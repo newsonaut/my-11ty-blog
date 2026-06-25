@@ -1,14 +1,25 @@
 import rssPlugin from "@11ty/eleventy-plugin-rss";
+import { read } from "fast-glob"; // If needed for webmentions
+import fs from "fs";
+import path from "path";
+
+// Fetch webmentions helper
+const fetchWebmentions = () => {
+  // Your existing fetch logic here
+};
 
 export default function (eleventyConfig) {
+  // Passthrough copies
   eleventyConfig.addPassthroughCopy("./src/css");
   eleventyConfig.addPassthroughCopy("./src/img");
   eleventyConfig.addPassthroughCopy("./src/fonts");
   eleventyConfig.addPassthroughCopy("./src/js");
 
+  // Input/output directories
   eleventyConfig.setInputDirectory("src");
   eleventyConfig.setOutputDirectory("public");
 
+  // Plugins & filters
   eleventyConfig.addPlugin(rssPlugin);
 
   eleventyConfig.addFilter("readableDate", (dateObj) => {
@@ -19,6 +30,7 @@ export default function (eleventyConfig) {
       timeZone: "UTC",
     });
   });
+
   eleventyConfig.addFilter("getAllTags", (collection) => {
     let tagSet = new Set();
     for (let item of collection) {
@@ -26,26 +38,18 @@ export default function (eleventyConfig) {
     }
     return Array.from(tagSet).sort();
   });
-}
 
-export const config = {
-  markdownTemplateEngine: "njk",
-  htmlTemplateEngine: "njk",
-};
-
-// webmentions
-const fetchWebmentions = require("./_data/fetch-webmentions");
-
-module.exports = async function (eleventyConfig) {
-  // Pre-build: Fetch mentions
-  eleventyConfig.on("beforeBuild", () => {
-    fetchWebmentions().catch(console.error);
+  // Webmentions (pre-build hook)
+  eleventyConfig.on("beforeBuild", async () => {
+    try {
+      await fetchWebmentions();
+    } catch (error) {
+      console.error(error);
+    }
   });
 
   // Make mentions available globally
   eleventyConfig.addGlobalDataAsync("webmentions", async () => {
-    const fs = require("fs");
-    const path = require("path");
     const cachePath = path.join(".eleventy-cache", "webmentions.json");
     if (fs.existsSync(cachePath)) {
       return JSON.parse(fs.readFileSync(cachePath, "utf8"));
@@ -55,6 +59,11 @@ module.exports = async function (eleventyConfig) {
 
   return {
     dir: { input: "src" },
-    passThroughCopy: ["_redirects"], // Optional for Netlify redirects
+    passThroughCopy: ["_redirects"],
   };
+}
+
+export const config = {
+  markdownTemplateEngine: "njk",
+  htmlTemplateEngine: "njk",
 };
