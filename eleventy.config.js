@@ -1,81 +1,71 @@
-// eleventy.config.js
-import rssPlugin from "@11ty/eleventy-plugin-rss";
-import fetchWebmentions from "./scripts/fetch-webmentions.js";
+// scripts/fetch-webmentions.js
+import fetch from "node-fetch";
 import fs from "fs";
 import path from "path";
 
-export default function (eleventyConfig) {
-  // ... (plugins, filters, passthrough copies remain the same) ...
+async function fetchWebmentions() {
+  const DOMAIN = "misfitgentleman.netlify.app";
+  const TOKEN = process.env.WEBMENTION_TOKEN;
 
-  eleventyConfig.addPlugin(rssPlugin);
-  eleventyConfig.addPassthroughCopy("./src/css");
-  eleventyConfig.addPassthroughCopy("./src/img");
-  eleventyConfig.addPassthroughCopy("./src/fonts");
-  eleventyConfig.addPassthroughCopy("./src/js");
+  console.log("--- Starting Webmention Fetch ---");
+  console.log("Domain:", DOMAIN);
+  console.log("Token Found?", !!TOKEN);
 
-  // Filters...
-  eleventyConfig.addFilter("readableDate", (dateObj) =>
-    new Date(dateObj).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }),
-  );
-  eleventyConfig.addFilter("getAllTags", (collection) =>
-    Array.from(new Set(collection.flatMap((i) => i.data.tags || []))).sort(),
-  );
-  eleventyConfig.addFilter("dateToRfc3339", (dateObj) =>
-    new Date(dateObj).toISOString().replace(/\.\d{3}Z$/, "Z"),
-  );
-  eleventyConfig.addFilter("getNewestCollectionItemDate", (collection) => {
-    const items = [...collection].sort((a, b) => b.date - a.date);
-    return items[0]?.date || new Date();
-  });
-
-  // Pre-build hook (Fetches data)
-  eleventyConfig.on("beforeBuild", async () => {
-    console.log("🚀 Triggering Webmention Fetch...");
-    try {
-      await fetchWebmentions();
-    } catch (error) {
-      console.error("❌ Webmentions error:", error);
-    }
-  });
-
-  // ✅ CRITICAL FIX: Explicitly define global data
-  // Note: 'webmentions' is the variable name in your templates
-  eleventyConfig.addGlobalDataAsync("webmentions", async () => {
-    const cachePath = path.join(
+  if (!TOKEN) {
+    console.warn(
+      "⚠️ WEBMENTION_TOKEN missing (local env). Creating empty manifest.",
+    );
+    // Save to src/_data/ so it becomes global data
+    const filePath = path.join(
       process.cwd(),
-      ".eleventy-cache",
+      "src",
+      "_data",
       "webmentions.json",
     );
 
-    // Log what we are trying to do for debugging
-    console.log("ℹ️ Looking for webmentions at:", cachePath);
+    // Ensure directory exists
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-    if (fs.existsSync(cachePath)) {
-      try {
-        const raw = fs.readFileSync(cachePath, "utf8");
-        const data = JSON.parse(raw);
-        console.log(
-          "✅ Loaded webmentions with",
-          data.entries?.length || 0,
-          "entries.",
-        );
-        return data;
-      } catch (e) {
-        console.error("⚠️ Error parsing webmentions:", e.message);
-        return { entries: [] };
-      }
-    } else {
-      console.warn("⚠️ Webmentions file NOT FOUND at:", cachePath);
-      return { entries: [] };
-    }
-  });
+    fs.writeFileSync(filePath, JSON.stringify({ entries: [] }, null, 2));
+    console.log("📄 Empty manifest saved to:", filePath);
+    return { entries: [] };
+  }
 
-  return {
-    dir: { input: "src", output: "public", includes: "_includes" },
-    passThroughCopy: ["_redirects"],
-  };
+  try {
+    const url = `https://webmention.io/api/mentions.jf2?domain=${DOMAIN}&token=${TOKEN}`;
+    console.log("Fetching:", url);
+
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+    const data = await response.json();
+    console.log(
+      "✅ Fetched successfully. Entries count:",
+      data.entries ? data.entries.length : 0,
+    );
+
+    const filePath = path.join(
+      process.cwd(),
+      "src",
+      "_data",
+      "webmentions.json",
+    );
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    console.log("📄 File saved to:", filePath);
+    return data;
+  } catch (error) {
+    console.error("❌ Failed to fetch webmentions:", error.message);
+    // Save empty on error too
+    const filePath = path.join(
+      process.cwd(),
+      "src",
+      "_data",
+      "webmentions.json",
+    );
+    fs.writeFileSync(filePath, JSON.stringify({ entries: [] }, null, 2));
+    return { entries: [] };
+  }
 }
+
+export default fetchWebmentions;
