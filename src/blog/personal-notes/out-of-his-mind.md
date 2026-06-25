@@ -1,5 +1,5 @@
 ---
-title: “A man out of his mind”
+title: “A Man Out of His Mind”
 date: 2026-06-25
 tags: ["Personal"]
 ---
