@@ -1,34 +1,52 @@
 // scripts/fetch-webmentions.js
-const fetch = require("node-fetch"); // Install with: npm install node-fetch
+const fetch = require("node-fetch");
+const fs = require("fs");
+const path = require("path");
 
 async function fetchWebmentions() {
-  const DOMAIN = "https://misfitgentleman.netlify.app/"; // Replace with your domain
-  const TOKEN = process.env.GZ0JziQvtpeVFsTgc8lh7Q; // Store token as env variable in Netlify
+  // FIX 1: Just the domain name, no https:// or /
+  const DOMAIN = "misfitgentleman.netlify.app"; 
+  
+  // FIX 2: Use the ENV VARIABLE NAME, not the value inside process.env
+  const TOKEN = process.env.WEBMENTION_TOKEN; 
+
+  console.log("--- Starting Webmention Fetch ---");
+  console.log("Domain:", DOMAIN);
+  console.log("Token Found?", !!TOKEN);
 
   if (!TOKEN) {
-    console.error("WEBMENTION_TOKEN not set!");
+    console.error("❌ ERROR: WEBMENTION_TOKEN environment variable is missing!");
+    console.log("Make sure you set 'WEBMENTION_TOKEN' in Netlify Environment Variables.");
     return [];
   }
 
   try {
-    const response = await fetch(
-      `https://webmention.io/api/mentions.jf2?domain=${DOMAIN}&token=${TOKEN}`,
-    );
+    const url = `https://webmention.io/api/mentions.jf2?domain=${DOMAIN}&token=${TOKEN}`;
+    console.log("Fetching:", url);
+
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json();
+    console.log("✅ Fetched successfully. Entries count:", data.entries ? data.entries.length : 0);
 
-    // Save to .eleventy-cache/webmentions.json
-    const fs = require("fs");
-    const path = require("path");
+    // Ensure directory exists
     const cacheDir = path.join(".eleventy-cache");
-    if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
+    if (!fs.existsSync(cacheDir)) {
+      fs.mkdirSync(cacheDir, { recursive: true });
+    }
 
-    fs.writeFileSync(
-      path.join(cacheDir, "webmentions.json"),
-      JSON.stringify(data),
-    );
+    // Save the JSON file
+    const filePath = path.join(cacheDir, "webmentions.json");
+    fs.writeFileSync(filePath, JSON.stringify(data));
+    
+    console.log("📄 File saved to:", filePath);
     return data;
   } catch (error) {
-    console.error("Failed to fetch webmentions:", error);
+    console.error("❌ Failed to fetch webmentions:", error.message);
     return [];
   }
 }
