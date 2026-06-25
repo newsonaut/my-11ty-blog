@@ -32,3 +32,29 @@ export const config = {
   markdownTemplateEngine: "njk",
   htmlTemplateEngine: "njk",
 };
+
+// webmentions
+const fetchWebmentions = require("./_data/fetch-webmentions");
+
+module.exports = async function (eleventyConfig) {
+  // Pre-build: Fetch mentions
+  eleventyConfig.on("beforeBuild", () => {
+    fetchWebmentions().catch(console.error);
+  });
+
+  // Make mentions available globally
+  eleventyConfig.addGlobalDataAsync("webmentions", async () => {
+    const fs = require("fs");
+    const path = require("path");
+    const cachePath = path.join(".eleventy-cache", "webmentions.json");
+    if (fs.existsSync(cachePath)) {
+      return JSON.parse(fs.readFileSync(cachePath, "utf8"));
+    }
+    return { entries: [] };
+  });
+
+  return {
+    dir: { input: "src" },
+    passThroughCopy: ["_redirects"], // Optional for Netlify redirects
+  };
+};
