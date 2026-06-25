@@ -11,15 +11,25 @@ async function fetchWebmentions() {
   const DOMAIN = "misfitgentleman.netlify.app";
   const TOKEN = process.env.WEBMENTION_TOKEN;
 
+  // Ensure cache directory ALWAYS exists
+  const cacheDir = path.join(process.cwd(), ".eleventy-cache");
+  if (!fs.existsSync(cacheDir)) {
+    fs.mkdirSync(cacheDir, { recursive: true });
+  }
+  const filePath = path.join(cacheDir, "webmentions.json");
+
   console.log("--- Starting Webmention Fetch ---");
   console.log("Domain:", DOMAIN);
   console.log("Token Found?", !!TOKEN);
 
   if (!TOKEN) {
-    console.error(
-      "❌ ERROR: WEBMENTION_TOKEN environment variable is missing!",
+    console.warn(
+      "⚠️  WEBMENTION_TOKEN missing (local env). Creating empty manifest.",
     );
-    return [];
+    // CRITICAL FIX: Write an empty structure so templates don't break
+    fs.writeFileSync(filePath, JSON.stringify({ entries: [] }, null, 2));
+    console.log("📄 Empty manifest saved to:", filePath);
+    return { entries: [] };
   }
 
   try {
@@ -38,26 +48,19 @@ async function fetchWebmentions() {
       data.entries ? data.entries.length : 0,
     );
 
-    const cacheDir = path.join(process.cwd(), ".eleventy-cache");
-    if (!fs.existsSync(cacheDir)) {
-      fs.mkdirSync(cacheDir, { recursive: true });
-    }
-
-    const filePath = path.join(cacheDir, "webmentions.json");
     fs.writeFileSync(filePath, JSON.stringify(data));
-
     console.log("📄 File saved to:", filePath);
     return data;
   } catch (error) {
     console.error("❌ Failed to fetch webmentions:", error.message);
-    return [];
+    // Save empty on error too, so build doesn't crash
+    fs.writeFileSync(filePath, JSON.stringify({ entries: [] }, null, 2));
+    return { entries: [] };
   }
 }
 
-// 🔥 CRITICAL: This line must be present
 export default fetchWebmentions;
 
-// Optional: Run immediately if called directly
 if (import.meta.url === `file://${process.argv[1]}`) {
   fetchWebmentions().catch(console.error);
 }
