@@ -1,63 +1,63 @@
-// scripts/fetch-webmentions.js
-import fetch from "node-fetch";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+// eleventy.config.js
+import rssPlugin from "@11ty/eleventy-plugin-rss";
+import fetchWebmentions from "./scripts/fetch-webmentions.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+export default function (eleventyConfig) {
+  // Initialize RSS plugin
+  eleventyConfig.addPlugin(rssPlugin);
 
-async function fetchWebmentions() {
-  const DOMAIN = "misfitgentleman.netlify.app";
-  const TOKEN = process.env.WEBMENTION_TOKEN;
+  // ... (passthrough copies) ...
 
-  console.log("--- Starting Webmention Fetch ---");
-  console.log("Domain:", DOMAIN);
-  console.log("Token Found?", !!TOKEN);
+  // --- ADD THESE MANUAL FILTERS FOR RSS/LIQUID ---
 
-  if (!TOKEN) {
-    console.error(
-      "❌ ERROR: WEBMENTION_TOKEN environment variable is missing!",
-    );
-    return [];
-  }
+  // Filter: dateToRfc3339 (converts dates to RFC3339 format)
+  eleventyConfig.addFilter("dateToRfc3339", (dateObj) => {
+    return new Date(dateObj).toISOString().replace(/\.\d{3}Z$/, "Z");
+  });
 
-  try {
-    const url = `https://webmention.io/api/mentions.jf2?domain=${DOMAIN}&token=${TOKEN}`;
-    console.log("Fetching:", url);
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+  // Filter: getNewestCollectionItemDate (gets newest item date from collection)
+  eleventyConfig.addFilter("getNewestCollectionItemDate", (collection) => {
+    const items = [...collection].sort((a, b) => b.date - a.date);
+    if (items.length > 0 && items[0].date) {
+      return items[0].date;
     }
+    return new Date();
+  });
 
-    const data = await response.json();
-    console.log(
-      "✅ Fetched successfully. Entries count:",
-      data.entries ? data.entries.length : 0,
-    );
+  // Your existing filters
+  eleventyConfig.addFilter("readableDate", (dateObj) => {
+    return new Date(dateObj).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    });
+  });
 
-    const cacheDir = path.join(process.cwd(), ".eleventy-cache");
-    if (!fs.existsSync(cacheDir)) {
-      fs.mkdirSync(cacheDir, { recursive: true });
+  eleventyConfig.addFilter("getAllTags", (collection) => {
+    let tagSet = new Set();
+    for (let item of collection) {
+      (item.data.tags || []).forEach((tag) => tagSet.add(tag));
     }
+    return Array.from(tagSet).sort();
+  });
 
-    const filePath = path.join(cacheDir, "webmentions.json");
-    fs.writeFileSync(filePath, JSON.stringify(data));
+  // Pre-build hook for webmentions
+  eleventyConfig.on("beforeBuild", async () => {
+    console.log("🚀 Triggering Webmention Fetch...");
+    try {
+      await fetchWebmentions();
+    } catch (error) {
+      console.error("❌ Webmentions error:", error);
+    }
+  });
 
-    console.log("📄 File saved to:", filePath);
-    return data;
-  } catch (error) {
-    console.error("❌ Failed to fetch webmentions:", error.message);
-    return [];
-  }
-}
-
-// 🔥 CRITICAL FIX: Export the function as default
-export default fetchWebmentions;
-
-// Optional: Run immediately if called directly (for local testing without importing)
-if (import.meta.url === `file://${process.argv[1]}`) {
-  fetchWebmentions().catch(console.error);
+  return {
+    dir: {
+      input: "src",
+      output: "public",
+      includes: "_includes",
+    },
+    passThroughCopy: ["_redirects"],
+  };
 }

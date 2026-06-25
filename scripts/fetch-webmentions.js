@@ -4,12 +4,11 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Fix __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function fetchWebmentions() {
-  const DOMAIN = "misfitgentleman.netlify.app"; // No https://
+  const DOMAIN = "misfitgentleman.netlify.app";
   const TOKEN = process.env.WEBMENTION_TOKEN;
 
   console.log("--- Starting Webmention Fetch ---");
@@ -39,13 +38,11 @@ async function fetchWebmentions() {
       data.entries ? data.entries.length : 0,
     );
 
-    // Ensure directory exists
     const cacheDir = path.join(process.cwd(), ".eleventy-cache");
     if (!fs.existsSync(cacheDir)) {
       fs.mkdirSync(cacheDir, { recursive: true });
     }
 
-    // Save the JSON file
     const filePath = path.join(cacheDir, "webmentions.json");
     fs.writeFileSync(filePath, JSON.stringify(data));
 
@@ -57,5 +54,10 @@ async function fetchWebmentions() {
   }
 }
 
-// Run the function
-fetchWebmentions().catch(console.error);
+// 🔥 CRITICAL: This line must be present
+export default fetchWebmentions;
+
+// Optional: Run immediately if called directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  fetchWebmentions().catch(console.error);
+}
