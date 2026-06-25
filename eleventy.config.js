@@ -1,71 +1,41 @@
-// scripts/fetch-webmentions.js
-import fetch from "node-fetch";
-import fs from "fs";
-import path from "path";
+// eleventy.config.js
+import rssPlugin from "@11ty/eleventy-plugin-rss";
 
-async function fetchWebmentions() {
-  const DOMAIN = "misfitgentleman.netlify.app";
-  const TOKEN = process.env.WEBMENTION_TOKEN;
+export default function (eleventyConfig) {
+  // Plugins
+  eleventyConfig.addPlugin(rssPlugin);
 
-  console.log("--- Starting Webmention Fetch ---");
-  console.log("Domain:", DOMAIN);
-  console.log("Token Found?", !!TOKEN);
+  // Passthrough copies
+  eleventyConfig.addPassthroughCopy("./src/css");
+  eleventyConfig.addPassthroughCopy("./src/img");
+  eleventyConfig.addPassthroughCopy("./src/fonts");
+  eleventyConfig.addPassthroughCopy("./src/js");
 
-  if (!TOKEN) {
-    console.warn(
-      "⚠️ WEBMENTION_TOKEN missing (local env). Creating empty manifest.",
-    );
-    // Save to src/_data/ so it becomes global data
-    const filePath = path.join(
-      process.cwd(),
-      "src",
-      "_data",
-      "webmentions.json",
-    );
+  // Filters
+  eleventyConfig.addFilter("readableDate", (dateObj) => {
+    return new Date(dateObj).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    });
+  });
 
-    // Ensure directory exists
-    const dir = path.dirname(filePath);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  eleventyConfig.addFilter("getAllTags", (collection) => {
+    let tagSet = new Set();
+    for (let item of collection) {
+      (item.data.tags || []).forEach((tag) => tagSet.add(tag));
+    }
+    return Array.from(tagSet).sort();
+  });
 
-    fs.writeFileSync(filePath, JSON.stringify({ entries: [] }, null, 2));
-    console.log("📄 Empty manifest saved to:", filePath);
-    return { entries: [] };
-  }
-
-  try {
-    const url = `https://webmention.io/api/mentions.jf2?domain=${DOMAIN}&token=${TOKEN}`;
-    console.log("Fetching:", url);
-
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-    const data = await response.json();
-    console.log(
-      "✅ Fetched successfully. Entries count:",
-      data.entries ? data.entries.length : 0,
-    );
-
-    const filePath = path.join(
-      process.cwd(),
-      "src",
-      "_data",
-      "webmentions.json",
-    );
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    console.log("📄 File saved to:", filePath);
-    return data;
-  } catch (error) {
-    console.error("❌ Failed to fetch webmentions:", error.message);
-    // Save empty on error too
-    const filePath = path.join(
-      process.cwd(),
-      "src",
-      "_data",
-      "webmentions.json",
-    );
-    fs.writeFileSync(filePath, JSON.stringify({ entries: [] }, null, 2));
-    return { entries: [] };
-  }
+  // Configuration
+  return {
+    dir: {
+      input: "src",
+      output: "public",
+      includes: "_includes",
+    },
+    passThroughCopy: ["_redirects"],
+  };
 }
-
-export default fetchWebmentions;
